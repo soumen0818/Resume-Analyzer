@@ -20,7 +20,7 @@ const Resume = () => {
 
     useEffect(() => {
         if (!isLoading && !auth.isAuthenticated) navigate(`/auth?next=/resume/${id}`);
-    }, [isLoading])
+    }, [isLoading, auth.isAuthenticated, navigate, id])
 
     useEffect(() => {
         const loadResume = async () => {
@@ -47,7 +47,7 @@ const Resume = () => {
         }
 
         loadResume();
-    }, [id]);
+    }, [id, kv, fs]);
 
     return (
         <main className="!pt-0">
@@ -76,7 +76,7 @@ const Resume = () => {
                     {feedback ? (
                         <div className="flex flex-col gap-8 animate-in fade-in duration-1000">
                             <Summary feedback={feedback} />
-                            <ATS score={feedback.ATS.score || 0} suggestions={feedback.ATS.tips || []} />
+                            <ATS score={feedback.ATS?.score || 0} suggestions={feedback.ATS?.tips || []} />
                             <Detail feedback={feedback} />
                         </div>
                     ) : (
